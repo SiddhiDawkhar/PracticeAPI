@@ -2,6 +2,7 @@ package com.example.realapi.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import java.util.*;
 
 @Data
 @Entity
@@ -22,4 +23,11 @@ public class Student {
 
     private String Phone;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "student_id")
+    private List<Course> courses = new ArrayList<>();
+
+    public Student() {
+
+    }
 }
