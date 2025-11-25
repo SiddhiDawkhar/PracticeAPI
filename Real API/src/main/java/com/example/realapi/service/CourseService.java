@@ -6,6 +6,7 @@ import com.example.realapi.repository.StudentRepository;
 import com.example.realapi.request.CourseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.Optional;
 import java.util.*;
 
@@ -15,12 +16,14 @@ public class CourseService {
     @Autowired
     private StudentRepository studentRepository;
 
-    public Optional<Student> addCourseToStudent(Long studentId, CourseDto courseDto)
-    { return studentRepository.findById(studentId) .map(student ->
-    { Course course = Course.builder() .courseName(courseDto.getCourseName())
-                                       .description(courseDto.getDescription()) .build();
-        student.getCourses().add(course);
-        return studentRepository.save(student); });
+    public Optional<Student> addCourseToStudent(Long studentId, CourseDto courseDto) {
+        return studentRepository.findById(studentId).map(student ->
+        {
+            Course course = Course.builder().courseName(courseDto.getCourseName())
+                    .description(courseDto.getDescription()).build();
+            student.getCourses().add(course);
+            return studentRepository.save(student);
+        });
     }
 
     public Optional<List<Course>> getCoursesForStudent(Long studentId) {
